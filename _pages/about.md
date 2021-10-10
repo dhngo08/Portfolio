@@ -4,8 +4,6 @@ title: About Me
 permalink: /about/
 ---
 
-This website is powered by **[fastpages](https://github.com/fastai/fastpages)** [^1].
+# <img align="right" src="{{site.baseurl}}/images/me4.jpg" width="225" height="254">
 
-
-
-[^1]:a blogging platform that natively supports Jupyter notebooks in addition to other formats.
+I am currently a Research Analyst at [Onpoint Analystics Inc.](https://onpointanalytics.com/staff/david-ngo/)

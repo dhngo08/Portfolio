@@ -8,4 +8,6 @@ permalink: /about/
 
 I am a Research Analyst at [Onpoint Analystics Inc.](https://onpointanalytics.com/staff/david-ngo/), a company that provides economic and statistical consulting services for legal proceedings and business disputes. I perform market research, data analysis, programming and visualization, economic and statistical analysis, and document research. Really, I consider myself a [data junkie.](https://blog.scit.edu/2013/08/05/hey-are-you-a-data-junkie/)
 
-Other bits about myself: I graduated with a B.A. in Combined Math/Economics ast UC Santa Cruz and an M.S. in Quantitative Economics from Cal Poly San Luis Obispo. In my free time, I've been honing my Python and SQL skills, learning the guitar, and playing tabletop games.
+Other bits about myself: I graduated with a B.A. in Combined Math/Economics at UC Santa Cruz and an M.S. in Quantitative Economics from Cal Poly San Luis Obispo. At Cal Poly, I developed and conducted surveys to identify the data science needs of faculty and staff and to support the development of advanced training programs. I also worked with the Cal Poly Digital Transformation Hub and the World Bank to predict food insecurity in Latin American regions using machine learning algorithms. See more on that [here.](https://dxhub.calpoly.edu/challenges/early-warning-for-early-action/)
+
+In my free time, I've been honing my Python and SQL skills, learning the guitar, and playing tabletop games.

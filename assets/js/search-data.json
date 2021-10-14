@@ -15,8 +15,8 @@
         ,"post1": {
             "title": "Monte Carlo Numerical Integration",
             "content": "For this exercise, I apply Monte Carlo to randomly draw $(x, y)$ values in $[- pi, pi] times [0,1]$. . I then use those values to compute $ int^ pi_{- pi}|cos(2x)|dx=4$. . The code is as follows: . import math import numpy as np from scipy import random # string &#39;fx&#39; is a function in terms of x # a is the lower limit # b is the upper limit # n is the sample size def mc_integral(fx,a,b,n): # defining monte carlo numerical integration method func = lambda x: eval(fx) # argument x and function fx; string fx is parsed and evaluated as a python expression xrand = random.uniform(a,b,n) # generating x values from a normal distribution with range a to b sum_fx = 0 # empty arry to store y values of fx for i in range(n): sum_fx += func(xrand[i]) # summation of computing x values into fx to generate y values answer = (b-a)/n * sum_fx # computing the definite integral of fx between a and b return answer . The function mc_integral should produce some pretty accurate integrations. . Let us try integrating $|cos(2x)|$ with the lower bound $- pi$, upper bound $ pi$, and a sample size 100,000. . print(mc_integral(&#39;abs(math.cos(2*x))&#39;,-np.pi,np.pi, 100000)) . 4.00146350409084 . With the above code, we find that $ int^ pi_{- pi}|cos(2x)|dx approx4$, a value very close to 4. I suppose that&#39;s decent enough :+1: .",
-            "url": "https://dhngo08.github.io/Portfolio/mathematics/python/2021/10/13/_Monte_Carlo_Numerical_Integration.html",
-            "relUrl": "/mathematics/python/2021/10/13/_Monte_Carlo_Numerical_Integration.html",
+            "url": "https://dhngo08.github.io/Portfolio/mathematics/python/2021/10/13/Monte-Carlo_Numerical-Integration.html",
+            "relUrl": "/mathematics/python/2021/10/13/Monte-Carlo_Numerical-Integration.html",
             "date": " • Oct 13, 2021"
         }
         

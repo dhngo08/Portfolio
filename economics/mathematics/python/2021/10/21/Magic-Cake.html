@@ -14,10 +14,11 @@
 <link rel="canonical" href="https://dhngo08.github.io/Portfolio/economics/mathematics/python/2021/10/21/Magic-Cake.html" />
 <meta property="og:url" content="https://dhngo08.github.io/Portfolio/economics/mathematics/python/2021/10/21/Magic-Cake.html" />
 <meta property="og:site_name" content="David Ngo" />
+<meta property="og:image" content="https://dhngo08.github.io/Portfolio/images/cake.jpg" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-10-21T00:00:00-05:00" />
 <script type="application/ld+json">
-{"description":"Finding the optimal saving rate with dynamic programming.","url":"https://dhngo08.github.io/Portfolio/economics/mathematics/python/2021/10/21/Magic-Cake.html","@type":"BlogPosting","headline":"Eating Magical Cakes with Dynamic Programming","dateModified":"2021-10-21T00:00:00-05:00","datePublished":"2021-10-21T00:00:00-05:00","author":{"@type":"Person","name":"David Ngo"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://dhngo08.github.io/Portfolio/economics/mathematics/python/2021/10/21/Magic-Cake.html"},"@context":"https://schema.org"}</script>
+{"description":"Finding the optimal saving rate with dynamic programming.","url":"https://dhngo08.github.io/Portfolio/economics/mathematics/python/2021/10/21/Magic-Cake.html","@type":"BlogPosting","headline":"Eating Magical Cakes with Dynamic Programming","dateModified":"2021-10-21T00:00:00-05:00","datePublished":"2021-10-21T00:00:00-05:00","author":{"@type":"Person","name":"David Ngo"},"image":"https://dhngo08.github.io/Portfolio/images/cake.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://dhngo08.github.io/Portfolio/economics/mathematics/python/2021/10/21/Magic-Cake.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/Portfolio/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://dhngo08.github.io/Portfolio/feed.xml" title="David Ngo" /><link rel="shortcut icon" type="image/x-icon" href="/Portfolio/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -472,6 +473,8 @@ $$<p>$V(\cdot)$ represents a value fuction where, for each $c$ given a value $0 
     <span class="nb">print</span><span class="p">(</span><span class="s1">'The optimal plan or best constant fraction is'</span><span class="p">,</span> 
           <span class="n">control</span><span class="p">[</span><span class="n">control_utilities</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">control_utilities</span><span class="p">))],</span> 
           <span class="s1">'which results in the maximum value'</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">control_utilities</span><span class="p">),</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="c1">#max_cake(z0y0, beta, r, mu, sigma, T, .001, 1, .001)</span>
 </pre></div>
 
     </div>
@@ -499,7 +502,7 @@ $$<p>$V(\cdot)$ represents a value fuction where, for each $c$ given a value $0 
 <h2 id="Credits">
 <a class="anchor" href="#Credits" aria-hidden="true"><span class="octicon octicon-link"></span></a>Credits<a class="anchor-link" href="#Credits"> </a>
 </h2>
-<p>Photo by <a href="https://unsplash.com/@rosenberg12?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Jacob Schwartz</a> on <a href="https://unsplash.com/s/photos/cake?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></p>
+<p>Photo by <a href="https://unsplash.com/@rosenberg12?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Jacob Schwartz</a> on <a href="https://unsplash.com/s/photos/cake?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash.</a></p>
 <p>This exercise is based on Sargent and Stachurski's article on <a href="https://python.quantecon.org/cake_eating_problem.html">Optimal Saving.</a></p>
 
 </div>

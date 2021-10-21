@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Eating Magical Cakes with Dynamic Programming | David Ngo</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Eating Magical Cakes with Dynamic Programming" />
+<meta name="author" content="David Ngo" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Finding the optimal saving rate with dynamic programming." />
+<meta property="og:description" content="Finding the optimal saving rate with dynamic programming." />
+<link rel="canonical" href="https://dhngo08.github.io/Portfolio/economics/mathematics/python/2021/10/21/Magic-Cake.html" />
+<meta property="og:url" content="https://dhngo08.github.io/Portfolio/economics/mathematics/python/2021/10/21/Magic-Cake.html" />
+<meta property="og:site_name" content="David Ngo" />
+<meta property="og:image" content="https://dhngo08.github.io/Portfolio/images/cake.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-10-21T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"Finding the optimal saving rate with dynamic programming.","url":"https://dhngo08.github.io/Portfolio/economics/mathematics/python/2021/10/21/Magic-Cake.html","@type":"BlogPosting","headline":"Eating Magical Cakes with Dynamic Programming","dateModified":"2021-10-21T00:00:00-05:00","datePublished":"2021-10-21T00:00:00-05:00","author":{"@type":"Person","name":"David Ngo"},"image":"https://dhngo08.github.io/Portfolio/images/cake.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://dhngo08.github.io/Portfolio/economics/mathematics/python/2021/10/21/Magic-Cake.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/Portfolio/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://dhngo08.github.io/Portfolio/feed.xml" title="David Ngo" /><link rel="shortcut icon" type="image/x-icon" href="/Portfolio/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/Portfolio/">David Ngo</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/Portfolio/about/">About Me</a><a class="page-link" href="/Portfolio/search/">Search</a><a class="page-link" href="/Portfolio/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Eating Magical Cakes with Dynamic Programming</h1><p class="page-description">Finding the optimal saving rate with dynamic programming.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-10-21T00:00:00-05:00" itemprop="datePublished">
+        Oct 21, 2021
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">David Ngo</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      6 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/Portfolio/categories/#economics">economics</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/Portfolio/categories/#mathematics">mathematics</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/Portfolio/categories/#python">python</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/dhngo08/Portfolio/tree/master/_notebooks/2021-10-21-Magic-Cake.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/Portfolio/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/dhngo08/Portfolio/master?filepath=_notebooks%2F2021-10-21-Magic-Cake.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/Portfolio/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/dhngo08/Portfolio/blob/master/_notebooks/2021-10-21-Magic-Cake.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/Portfolio/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#Background">Background </a></li>
+<li class="toc-entry toc-h2"><a href="#Exercise">Exercise </a></li>
+<li class="toc-entry toc-h2"><a href="#Terminology">Terminology </a></li>
+<li class="toc-entry toc-h2"><a href="#Setting-up-the-Dynamic-Program">Setting up the Dynamic Program </a></li>
+<li class="toc-entry toc-h2"><a href="#Code">Code </a></li>
+<li class="toc-entry toc-h2"><a href="#Conclusion">Conclusion </a></li>
+<li class="toc-entry toc-h2"><a href="#Credits">Credits </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2021-10-21-Magic-Cake.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In layman terms, <a href="https://en.wikipedia.org/wiki/Dynamic_programming">dynamic programming</a> is a method of mathematical optimizaation, breaking down a complex problem into simpler parts and storing the results to save on computing power. We use dynamic programming to efficiently calculate the Bellman equation, which will be explain in the following sections.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Background">
+<a class="anchor" href="#Background" aria-hidden="true"><span class="octicon octicon-link"></span></a>Background<a class="anchor-link" href="#Background"> </a>
+</h2>
+<p>Suppose a nice genie has given us a magic cake. The cake's initial size at time 0 is $y_0z_0$, some known number. Once per day, we are allowed to eat a piece of any size from the cake. Overnight, the cake will regenerate with multiplicative random variable $z_t$ whose logarithm is independently and identically distributed $N(\mu, \sigma)$. This means we potentially have an unlimited source of cake!</p>
+<p>Suppose the genie places the condition that we must choose a constant fraction of the cake to eat each day. As rational economists, we want to fully maximize our happiness by eating the right amount of cake each day. For this experiment, we can assume our utility function to be $E\big[\sum_{t=0}^{\infty}\beta^tu(c_t)\big]$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Exercise">
+<a class="anchor" href="#Exercise" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exercise<a class="anchor-link" href="#Exercise"> </a>
+</h2>
+<p>We apply the following:</p>
+<ol>
+<li>Guess that the optimal policy is to eat a constant fraction of the magic cake in every period. </li>
+<li>Assume that $u(c) = \frac{c^{1-r}-1}{1-r}$ for $r \geq 0$. Fix $z_0y_0=69$, $r=2$, $\beta = 0.95$, $\mu=0$, and $\sigma = 0.1$. </li>
+<li>Using np.random.seed(1234), generate a fixed sequence of 100 log normally distributed random variables. </li>
+<li>Use Python to search for the fraction that maximizes the expected reward for that fixed sequence. </li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Terminology">
+<a class="anchor" href="#Terminology" aria-hidden="true"><span class="octicon octicon-link"></span></a>Terminology<a class="anchor-link" href="#Terminology"> </a>
+</h2>
+<p>We use the following terminology:</p>
+<ul>
+<li>The <strong>state</strong> space, denoted $X$ is the size of the cake when we start with $(y_0, z_0)$.</li>
+<li>The <strong>control,</strong> denoted $U$, is the piece of any size from the cake that you choose to eat. So we have $u \in U$ such that $0 &lt; u &lt; 1$.</li>
+<li>The <strong>law of motion</strong> represents the transition into the next price. This is the the multiplicative random variable or shock $z_t$, whose logarithm is independently and identically distributed $N(\mu, \sigma)$.</li>
+<li>The <strong>reward</strong> $r$ is $r: X \times Y \rightarrow \mathbb{R}$, so we have the reward r(x,y) for $x \in X$ if we choose some fraction $u \in U$.</li>
+<li>The <strong>discount factor</strong> is $\beta$, how much we discount to forgo current felicity in favor of future felicity.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Setting-up-the-Dynamic-Program">
+<a class="anchor" href="#Setting-up-the-Dynamic-Program" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setting up the Dynamic Program<a class="anchor-link" href="#Setting-up-the-Dynamic-Program"> </a>
+</h2>
+<p>Let us reiterate what we know so far:</p>
+<ol>
+    <li> The state space is the random size of the cake</li>  
+    <li> The control space is how much one eats in period $t$</li> 
+    <li> The law of motion is $x_{t+1} = z_{t+1}(x_t-c_t)$, where $x_t$ is the known size of the cake at time $t$. $z_{t+1}$ is lognormally distributed with parameters $\mu$ and $\sigma$.</li> 
+    <li> The reward function is $u(c)$.</li>
+    <li> The discount factor is $\beta$. </li>   
+</ol>
+<p>For this problem, we can apply the Bellman equation:</p>
+$$
+V(x_t) = max_{c_t \in [0,x_t]}\left\{ u(c_t) + \beta E[V\left(z_{t+1}(x_t-c_t)\right)|z_t] \right\}
+$$<p>$V(\cdot)$ represents a value fuction where, for each $c$ given a value $0 \leq u \leq 1$, we maximize the expected value of the optimal plan. Essentially, the bellman equation lets us find the optimal solution of a complex, iterative problems by breaking it down into simpler parts—which is why we use dynmaic programming to solve this problem. An explanation of the bellman equation can be found <a href="https://towardsdatascience.com/the-bellman-equation-59258a0d3fa7">here</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Code">
+<a class="anchor" href="#Code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code<a class="anchor-link" href="#Code"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let us first initialize the values of the state space: we assume that $u(c) = \frac{c^{1-r}-1}{1-r}$ for $r \geq 0$. Fix $z_0y_0=69$, $r=2$, $\beta = 0.95$, $\mu=0$, and $\sigma = 0.1$. We then generate a fixed sequence of 100 log normally distributed random variables.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Finding the fraction that maximizes the expected reward for the fixed sequence</span>
+
+<span class="n">z0y0</span> <span class="o">=</span> <span class="mi">69</span>
+<span class="n">r</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">beta</span> <span class="o">=</span> <span class="mf">0.97</span>
+<span class="n">mu</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="o">.</span><span class="mi">1</span>
+<span class="n">T</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="c1"># Generate a fixed sequence of 100 log normally distributed random variables.</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1234</span><span class="p">)</span>
+<span class="n">sequence</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">lognormal</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Next, we create the felicity (utility) function. We use this to calculate our happiness for given amount of cake we consume.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">felicity</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">r</span><span class="p">):</span>
+    <span class="sd">"""""</span>
+<span class="sd">    </span>
+<span class="sd">    Computing the felicity given consumption c</span>
+<span class="sd">    and reward r</span>
+<span class="sd">    </span>
+<span class="sd">    """</span><span class="s2">""</span>
+    
+    <span class="c1"># u(c)</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="p">(</span><span class="n">c</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">r</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">r</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">u</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can then create a function to calculate our utility overtime.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">bigU</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">T</span><span class="p">):</span>
+    <span class="sd">"""""</span>
+<span class="sd">    </span>
+<span class="sd">    Computing the sum of utilities</span>
+<span class="sd">    C is the sequence of consumption</span>
+<span class="sd">    beta is the discount factor</span>
+<span class="sd">    r is the reward curvature</span>
+<span class="sd">    T is the time period</span>
+<span class="sd">    </span>
+<span class="sd">    """</span><span class="s2">""</span>
+    
+    <span class="n">U</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
+        <span class="n">utility</span> <span class="o">=</span> <span class="n">beta</span><span class="o">**</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">*</span><span class="n">felicity</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">r</span><span class="p">)</span>
+        <span class="n">U</span><span class="o">+=</span> <span class="n">utility</span>
+    
+    <span class="k">return</span> <span class="n">U</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we create a function to calculate the law of motion. We need this to figure out how much the cake will grow in the next period.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">motion</span><span class="p">(</span><span class="n">initial_state</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">share</span><span class="p">):</span>
+    <span class="sd">"""""</span>
+<span class="sd">    Computing the sequence of consumption</span>
+<span class="sd">    z equals a sequence of numbers, representing </span>
+<span class="sd">    the random shocks to the size of the cake </span>
+<span class="sd">    given the initial state</span>
+<span class="sd">   </span>
+<span class="sd">    """</span><span class="s2">""</span>
+
+    <span class="n">c</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">y_0</span> <span class="o">=</span> <span class="n">initial_state</span>
+    <span class="n">c_0</span> <span class="o">=</span> <span class="n">share</span> <span class="o">*</span> <span class="n">y_0</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c_0</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">z</span><span class="p">)):</span>
+        <span class="n">y_1</span> <span class="o">=</span> <span class="n">z</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">y_0</span> <span class="o">-</span> <span class="n">c_0</span><span class="p">)</span>
+        <span class="n">c_1</span> <span class="o">=</span> <span class="n">share</span><span class="o">*</span><span class="n">y_1</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c_1</span><span class="p">)</span>
+        <span class="n">y_0</span> <span class="o">=</span> <span class="n">y_1</span>
+        <span class="n">c_0</span> <span class="o">=</span> <span class="n">c_1</span>
+        
+    <span class="k">return</span> <span class="n">c</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Finally, we can use the above functions to create a function that determines the fraction of the cake that yields the maximum utility overtime.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Initial values</span>
+<span class="n">z0y0</span> <span class="o">=</span> <span class="mi">69</span>
+<span class="n">r</span> <span class="o">=</span> <span class="o">.</span><span class="mi">2</span>
+<span class="n">beta</span> <span class="o">=</span> <span class="mf">0.95</span>
+<span class="n">mu</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="o">.</span><span class="mi">1</span>
+<span class="n">T</span> <span class="o">=</span> <span class="mi">100</span>
+
+
+<span class="k">def</span> <span class="nf">max_cake</span><span class="p">(</span><span class="n">initial_state</span><span class="p">,</span> 
+             <span class="n">beta</span><span class="p">,</span> 
+             <span class="n">r</span><span class="p">,</span> 
+             <span class="n">mu</span><span class="p">,</span>
+             <span class="n">sigma</span><span class="p">,</span>
+             <span class="n">T</span><span class="p">,</span> 
+             <span class="n">a</span><span class="p">,</span> 
+             <span class="n">b</span><span class="p">,</span> 
+             <span class="n">increment</span><span class="p">):</span>
+
+    <span class="sd">"""""</span>
+<span class="sd">    </span>
+<span class="sd">    Finding the number in range [a,b] that provides </span>
+<span class="sd">    the maximum utility</span>
+<span class="sd">    initial_state is the size of the cake at state 0</span>
+<span class="sd">    beta is the discount factor</span>
+<span class="sd">    r is some given value to compute utility for this case</span>
+<span class="sd">    T is the period of time</span>
+<span class="sd">    mu is the given mean</span>
+<span class="sd">    sigma is the given standard deviation</span>
+<span class="sd">    initial_state is the size of the cake at state 0</span>
+<span class="sd">    Given the range a to b, with increments from a to b</span>
+<span class="sd">    </span>
+<span class="sd">    """</span><span class="s2">""</span>
+    
+    <span class="c1"># Generate a fixed sequence of T log normally distributed random variables.</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1234</span><span class="p">)</span>
+    <span class="n">sequence</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">lognormal</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
+    
+    <span class="c1"># Array of fractions</span>
+    <span class="n">control</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">increment</span><span class="p">)</span>
+    
+    <span class="c1"># Empty array</span>
+    <span class="n">control_utilities</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="c1"># Compute value function for each constant fraction</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">control</span><span class="p">)):</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">motion</span><span class="p">(</span><span class="n">initial_state</span><span class="p">,</span> <span class="n">sequence</span><span class="p">,</span> <span class="n">control</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">utility</span> <span class="o">=</span> <span class="n">bigU</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
+        <span class="n">control_utilities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">utility</span><span class="p">)</span>
+        
+    <span class="c1"># Find the fraction that maximizes utility</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'The best constant fraction is'</span><span class="p">,</span> 
+          <span class="n">control</span><span class="p">[</span><span class="n">control_utilities</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">control_utilities</span><span class="p">))],</span> 
+          <span class="s1">'and the maximum utility is'</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">control_utilities</span><span class="p">),</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="n">max_cake</span><span class="p">(</span><span class="n">z0y0</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="o">.</span><span class="mi">001</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">001</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The best constant fraction is 0.22 and the maximum utility is 25.71
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Conclusion">
+<a class="anchor" href="#Conclusion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusion<a class="anchor-link" href="#Conclusion"> </a>
+</h2>
+<p>Provided that the optimal policy is to eat a constant fraction of the magic cake in every period, we find that eating 22% of the cake each day maximizes our expected reward for the fixed sequence. Thank you genie!</p>
+<p>Things to consider: We made assumptions on our reward function, discount factor, etc. If we were to change the value of these conditions, there is no doubnt that our best constant fraction and maximum utility would also change. And just because we are "happiest" does not mean we are happy at all! I imagine that once I choose a fraction of the cake to eat for each day, I would be compelled to eat the same flavored cake every day for the rest of my life. What a sneaky genie!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Credits">
+<a class="anchor" href="#Credits" aria-hidden="true"><span class="octicon octicon-link"></span></a>Credits<a class="anchor-link" href="#Credits"> </a>
+</h2>
+<p>Photo by <a href="https://unsplash.com/@rosenberg12?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Jacob Schwartz</a> on <a href="https://unsplash.com/s/photos/cake?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash.</a></p>
+<p>This exercise is based on Sargent and Stachurski's article on <a href="https://python.quantecon.org/cake_eating_problem.html">Optimal Saving.</a></p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="dhngo08/Portfolio"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/Portfolio/economics/mathematics/python/2021/10/21/Magic-Cake.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/Portfolio/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/Portfolio/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/Portfolio/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>A personal blog and programming portfolio.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/dhngo08" title="dhngo08"><svg class="svg-icon grey"><use xlink:href="/Portfolio/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://www.linkedin.com/in/david-h-ngo" title="david-h-ngo"><svg class="svg-icon grey"><use xlink:href="/Portfolio/assets/minima-social-icons.svg#linkedin"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -2,7 +2,7 @@
   
     
         "post0": {
-            "title": "Visualizing The United States Real GDP Growth and Unemployment Rate",
+            "title": "Visualizing Real GDP and Unemployment Rate",
             "content": "I made a couple of simple charts, one to visualize the year-over-year Real Gross Domestic Product (GDP) growth in the United States and another for the rate of unemployment overtime. Data comes from the St. Louis Federal Reserve, Federal Reserve Economic Data. . By year-over-year, I am comparing the GDP of one quarter with the same quarter in the previous year. For example, the growth rate of Real GDP in the first quarter of 2020 would be: . $$ %Growth_{2020} = frac{GDP_{2020} - GDP_{2019}}{GDP_{2019}} times 100$$ .",
             "url": "https://dhngo08.github.io/Portfolio/data%20visualization/economics/python/2021/10/14/GDP-Unemployment-Rate-Charts.html",
             "relUrl": "/data%20visualization/economics/python/2021/10/14/GDP-Unemployment-Rate-Charts.html",
